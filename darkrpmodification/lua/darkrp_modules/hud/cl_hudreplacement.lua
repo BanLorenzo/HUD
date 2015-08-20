@@ -201,11 +201,6 @@ local function HUD()
 	if 
 	   namefont  == "NameSmall" and l <= 193 then
 	   name = string.sub( LocalPlayer():Name(), 1, 16 )..".."
-	--elseif
-	  -- namefont  == "NameUniversal" and l <=193 then
-	  -- name = string.sub( LocalPlayer():Name(), 1, 16 )..".."
-
-
 
 	end
 
@@ -239,8 +234,6 @@ local function HUD()
 
 	local teamcolor = team.GetColor(LocalPlayer():Team()) 
 	draw.SimpleText(job, jobfont, 130, ScrH() - 113, teamcolor )
-	--draw.SimpleText("Job: ", jobfont, 130, ScrH() - 113, Color(255,255,255,255) )
-	--draw.SimpleText("Job: "..job, jobfont, 133, ScrH() - 113, Color( 255, 255, 255, 255 ) )
 
 	--// Level \\--
 
@@ -401,123 +394,5 @@ local function HUD()
 end
 
 hook.Add("HUDPaint", "PaintOurAuroraHUD", HUD)			
-
-
---[[ ALL MY FUCKING TEST CODE FUCK FUCK FUCK FUCK FUCK FUCK FUCK FUCK 
-local HUDPlyIcon = false
-local b_CameraIsOut = false
-local function HUD_PlayerIcon() -- or a timer or something
-	if( !HUDPlyIcon || !HUDPlyIcon:IsValid() ) then
-		local mdl = vgui.Create( "DModelPanel" )
-		mdl:ParentToHUD()
-		mdl:SetPos( 53, ScrH() - 140 )
-		mdl:SetSize(78, 78)
-		mdl:SetModel( LocalPlayer():GetModel() )
-		local eyepos = mdl.Entity:GetBonePosition( mdl.Entity:LookupBone( "ValveBiped.Bip01_Head1" ) )
-        mdl:SetCamPos( eyepos - Vector( -13, 0, 0 ) )
-        mdl:SetLookAt(eyepos)
-		
-
-		local ent = mdl:GetEntity()
-		local seq = ent:LookupSequence("idle_all_01")
-		if( seq == -1 ) then
-			seq = ent:LookupSequence( "idle01" )
-		end
-		if( seq != -1 ) then
-			mdl:SetAnimated( true )
-			ent:SetSequence( seq )
-		end
-
-		HUDPlyIcon = mdl
-
-	end
-
-	if( b_CameraIsOut ) then -- Camera Out
-	HUDPlyIcon:SetVisible( false )
-	else
-		HUDPlyIcon:SetVisible( true )
-	end
-end
-
--- function mdl:LayoutEntity( Entity )  end
-
-hook.Add("HUDPaint", "HUD_PlayerIcon", HUD_PlayerIcon)
-
-hook.Add("OnPlayerChangedTeam", "ChangeHUDModel", function(ply)
-        timer.Simple(0.2,function() if(!IsValid( ply ) || !HUDPlyIcon || !HUDPlyIcon:IsValid() ) then return end
-                mdl:SetModel(ply:GetModel())
-        end )
-end)
-
-
-local function DrawModelIcons()
-	
-		PlayerIcon = vgui.Create("SpawnIcon")
-		PlayerIcon:ParentToHUD()
-		PlayerIcon:SetPos( 55, ScrH() - 140 )
-		PlayerIcon:SetSize(78, 78)
-		PlayerIcon:SetToolTip("")
-		PlayerIcon:SetModel(LocalPlayer():GetModel())
-	
-end
-hook.Add("HUDPaint", "DrawModelIcons", DrawModelIcons)
-]]
-
---[[
-
---concommand.Add("testpanel", function()
-
-	timer.Simple(5, function() 
-		local pnl = vgui.Create("DModelPanel")
-		pnl:ParentToHUD()
-		pnl:SetSize(80,80)
-		pnl:SetPos(35, ScrH() - 170)
-		pnl:SetModel(LocalPlayer():GetModel())
-	    pnl:SetCamPos( Vector( 14, 0, 65))
-	    pnl:SetLookAt( Vector( 0, 0, 66.5 ) )
-		function pnl:LayoutEntity( Entity ) return end
-		hook.Add("OnPlayerChangedTeam", "ChangeHUDModel", function(ply)
-			pnl:SetModel(ply:GetModel())
-		end)
-	end)
---end)
-
-
-local HUDPlyIcon
-local b_CameraIsOut = false
-local function HUD_PlayerIcon() -- or a timer or something
-        if( !HUDPlyIcon || !HUDPlyIcon:IsValid() ) then
-                local mdl = vgui.Create( "DModelPanel" )
-                mdl:ParentToHUD()
-                mdl:SetPos( 55, ScrH() - 140 )
-                mdl:SetCamPos(Vector(14, 0, 65))
-                mdl:SetLookAt(Vector(0, 0, 66.5))
-                mdl:SetSize(78, 78)
-                mdl:SetModel( LocalPlayer():GetModel() )
-                mdl:SetAnimated( true )
-                local ent = mdl:GetEntity()
-                local seq = ent:LookupSequence("idle01") ------- WIP 
-                ent:SetSequence( seq )
- 
-                HUDPlyIcon = mdl
-        end
- 
-        if( b_CameraIsOut ) then -- Camera Out
-                HUDPlyIcon:SetVisible( false )
-        else
-                HUDPlyIcon:SetVisible( true )
-        end
-end
-hook.Add("HUDPaint", "HUD_PlayerIcon", HUD_PlayerIcon)
- 
-hook.Add("OnPlayerChangedTeam", "ChangeHUDModel", function(ply)
-        timer.Simple(2,function() if(!IsValid( ply ) || !HUDPlyIcon || !HUDPlyIcon:IsValid() ) then return end
-                HUDPlyIcon:SetModel(ply:GetModel())
-        end )
-end)
-]]
-
-
-			
 
 
